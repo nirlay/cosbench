@@ -1,0 +1,31 @@
+{
+    "id": "/cosbench/nirlaymastertampa/localhost",
+    "cpus": 4,
+    "mem": 16384,
+   "ports": [
+        18088,
+        19088
+    ],
+    "instances": 1,
+    "container":
+      {
+        "type": "DOCKER",
+        "volumes": [],
+        "docker": {
+         "image": "10.100.33.1:9000/montana/cbenchmaster:v4d",
+          "network": "HOST",
+          "privileged": false,
+          "parameters": [],
+          "forcePullImage": false
+        }
+      },
+     "env": {
+         "DRIVER2": "10.102.23.1",
+         "PORT2": "18088",
+         "DRIVER3": "10.101.30.1",
+         "PORT3": "18088",
+         "DRIVER4": "10.102.29.1",
+         "PORT4": "18088"
+        },
+   "uris": ["file:///.dockercfg"]
+}

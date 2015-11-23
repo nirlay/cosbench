@@ -1,0 +1,23 @@
+{
+    "id": "/cosbench/nirlaydrivertampa/localhost",
+   "cpus": 4,
+    "mem": 16384,
+   "ports": [
+        18088,
+        19088
+    ],
+    "instances": 3,
+    "container":
+   {
+     "type": "DOCKER",
+    "volumes": [],
+     "docker": {
+       "image": "10.100.33.1:9000/montana/cbenchdriver:v4.2",
+       "network": "HOST",
+       "privileged": false,
+       "parameters": [],
+       "forcePullImage": false
+     }
+   },
+ "uris": ["file:///.dockercfg"]
+}
