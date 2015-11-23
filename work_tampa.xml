@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <workload name="ecs-arl-rack3proxy" description="RandReadWrite benchmark for ecs">
+      <storage type="s3" config="accesskey=user0;secretkey=NNusdu5C0pVj5oYOyJIawyMQK+KAGdp0vSm92ClR;proxyhost=;proxyport=;endpoint=http://127.0.0.1:4200"/>
+      <workflow>
+         <workstage name="init">
+             <work type="init" workers="1" config="createContainer=True;cprefix=testc;containers=r(1,2)"/>
+         </workstage>
+         <workstage name="prepare">
+               <work type="prepare" workers="160" config="cprefix=testc;containers=r(1,2);objects=r(1,14400);sizes=c(1)MB"/>
+         </workstage>
+         <workstage name="main">
+             <work name="main" workers="3400" runtime="3600">
+                 <operation type="read" ratio="17" config="cprefix=testc;containers=c(1);objects=u(1,14400)"/>
+                 <operation type="write" ratio="83" config="cprefix=testc;containers=c(1);objects=s(300000000,334560000);sizes=h(4|4|80,1000|1000|20)KB"/>
+             </work>
+         </workstage>
+         <workstage name="cleanup">
+               <work type="cleanup" workers="80" config="cprefix=testc;containers=r(1,2);objects=r(1,144000)"/>
+               <work type="cleanup" workers="80" config="cprefix=testc;containers=r(1,1);objects=r(100000000,134560000)"/>
+         </workstage>
+         <workstage name="dispose">
+               <work type="dispose" workers="1" config="deleteContainer=False;cprefix=testc;containers=r(1,2)"/>
+         </workstage>
+    </workflow>
+</workload>
